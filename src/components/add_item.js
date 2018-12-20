@@ -13,7 +13,7 @@ class AddItem extends Component{
         console.log('New Item ', this.state)
         this.props.add(this.state);
     }
-    render(){
+    render(){ 
         const{title, details} = this.state;
         return(
             <form onSubmit={this.handleSaveItem}>
