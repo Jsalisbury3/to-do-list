@@ -4,6 +4,13 @@ import React, {Component} from 'react';
 import List from './list';
 import AddItem from './add_item';
 import dummyList from '../data/to_do_list'
+import {randomString} from '../helpers'
+
+console.log(randomString(2));
+console.log(randomString(3));
+console.log(randomString(4));
+console.log(randomString(14));
+console.log(randomString(32));
 
 
 class App extends Component{
@@ -17,12 +24,16 @@ class App extends Component{
     addItem=(item)=>{
         const {list} =this.state
 
-        listCopy.push(item);
+        console.log(list)
+
+        //item._id = randomString(); 
+        //listCopy.push(item);
 
         this.setState({
-            list: [item,...list]
+            list: [{...item, _id: randomString()}, ...list]
         })
     }
+
     getListData(){
         // Call server to get list data
         this.setState({
