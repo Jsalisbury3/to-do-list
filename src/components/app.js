@@ -6,13 +6,6 @@ import AddItem from './add_item';
 import dummyList from '../data/to_do_list'
 import {randomString} from '../helpers'
 
-console.log(randomString(2));
-console.log(randomString(3));
-console.log(randomString(4));
-console.log(randomString(14));
-console.log(randomString(32));
-
-
 class App extends Component{
     state = {
         list:[]
@@ -20,11 +13,10 @@ class App extends Component{
     componentDidMount(){
         this.getListData(); 
     }
-
     addItem=(item)=>{
         const {list} =this.state
 
-        console.log(list)
+        console.log(list);
 
         //item._id = randomString(); 
         //listCopy.push(item);
@@ -33,7 +25,6 @@ class App extends Component{
             list: [{...item, _id: randomString()}, ...list]
         })
     }
-
     getListData(){
         // Call server to get list data
         this.setState({

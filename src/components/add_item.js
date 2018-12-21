@@ -4,7 +4,6 @@ class AddItem extends Component{
     state={
         title:'',
         details:''
-
     }
     handleSaveItem = (event) =>{
         event.preventDefault();
