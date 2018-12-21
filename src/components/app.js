@@ -1,10 +1,14 @@
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/js/materialize'
 import React, {Component} from 'react';
+import axios from 'axios';
 import List from './list';
 import AddItem from './add_item';
 import dummyList from '../data/to_do_list'
 import {randomString} from '../helpers'
+
+const BASE_URL = 'http://api.reactprototypes.com/todos';
+const API_KEY = '?key=flamestatus'; 
 
 class App extends Component{
     state = {
@@ -13,23 +17,22 @@ class App extends Component{
     componentDidMount(){
         this.getListData(); 
     }
-    addItem=(item)=>{
-        const {list} =this.state
-
-        console.log(list);
-
-        //item._id = randomString(); 
-        //listCopy.push(item);
-
-        this.setState({
-            list: [{...item, _id: randomString()}, ...list]
-        })
+    addItem= async (item)=>{
+        await axios.post(BASE_URL + API_KEY, item);
+        this.getListData();
     }
-    getListData(){
-        // Call server to get list data
-        this.setState({
-            list:dummyList
-        });
+    async getListData(){
+        
+        try{
+            const resp = await axios.get(BASE_URL + API_KEY);
+
+            this.setState({
+                list: resp.data.todos
+            })
+        }catch(error){
+            console.log('something went wrong', error.message)
+        }
+
     }
     render(){
         const{list}=this.state;

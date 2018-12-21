@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
+import ListItem from './list_item';
 
 const List=(props)=>{
     const listElements = props.toDos.map((item)=>{
-        return <li className="collection-item" key={item._id}>{item.title}</li>
+        return <ListItem key={item._id} title={item.title}/>
     });
     return(
             <ul className='collection'>
