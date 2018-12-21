@@ -12,7 +12,8 @@ const API_KEY = '?key=flamestatus';
 
 class App extends Component{
     state = {
-        list:[]
+        list:[],
+        toggle: false
     }
     componentDidMount(){
         this.getListData(); 
@@ -22,7 +23,6 @@ class App extends Component{
         this.getListData();
     }
     async getListData(){
-        
         try{
             const resp = await axios.get(BASE_URL + API_KEY);
 
@@ -34,13 +34,27 @@ class App extends Component{
         }
 
     }
+
+    deleteItem = async (id)=>{
+        const resp = await axios.delete(`${BASE_URL}/${id + API_KEY}`);
+        this.getListData();
+    }
+
+    toggleComplete = async (id) => {
+        const resp = await axios.put(`${BASE_URL}/${id + API_KEY}`);
+        console.log(resp)
+        this.getListData();
+    }
+
+
+
     render(){
         const{list}=this.state;
         return(
             <div className = "container">
                 <h1 className="center">The to do list</h1>
                 <AddItem add={this.addItem}/>
-                <List toDos={list}/>
+                <List delete={this.deleteItem} toDos={list} complete={this.toggleComplete}/>
             </div>
         );
     }
