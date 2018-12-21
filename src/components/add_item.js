@@ -13,7 +13,6 @@ class AddItem extends Component{
 
         this.reset();
     }
-
     reset=()=>{
         this.setState({
             title:'',
