@@ -1,5 +1,6 @@
 import React from 'react';
 import ListItem from './list_item';
+import NavButton from './nav_button';
 
 const List=(props)=>{
     const listElements = props.toDos.map((item)=>{
@@ -11,9 +12,13 @@ const List=(props)=>{
           />)
     });
     return(
+        <div>
+            <h1 className="center">To Do List</h1>
+            <NavButton to="/add-item" text="Add Item" className="material-icons arrow_back"/>
             <ul className='collection'>
             {listElements}
             </ul>
+        </div>
     )
 }
 
