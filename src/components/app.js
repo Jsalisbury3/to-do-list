@@ -5,9 +5,8 @@ import axios from 'axios';
 import List from './list';
 import AddItem from './add_item';
 import {Route} from 'react-router-dom';
-
-const BASE_URL = 'http://api.reactprototypes.com/todos';
-const API_KEY = '?key=flamestatus'; 
+import ViewItem from './view_item';
+import {BASE_URL, API_KEY} from '../config/api';
 
 class App extends Component{
     state = {
@@ -47,7 +46,6 @@ class App extends Component{
         const{list}=this.state;
         return(
             <div className = "container">
-                {/* <h1 className="center">The to do list</h1> */}
                 <Route path="/add-item" render={(props)=>{ console.log("Props", props);
                     return  <AddItem {...props} add={this.addItem}/>
                 }}/>
@@ -55,6 +53,8 @@ class App extends Component{
                 <Route exact path="/" render={(props)=>{ 
                     return  <List {...props} delete={this.deleteItem} toDos={list} complete={this.toggleComplete}/>
                 }}/>
+
+                <Route path="/item/:item_id" component={ViewItem}/>
             </div>
         );
     }
