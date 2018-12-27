@@ -1,0 +1,13 @@
+.not-dound-container{
+    height: 100vh;
+    display: flex;
+}
+
+.not-found-content{
+    margin:auto;
+    text-align: center;
+}
+
+.not-found-content a {
+    font-size: 1.8em;
+}
