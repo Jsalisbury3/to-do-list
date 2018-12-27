@@ -4,7 +4,8 @@ import NavButton from './nav_button';
 
 const List=(props)=>{
     const listElements = props.toDos.map((item)=>{
-        return (<ListItem 
+        return (<ListItem
+        itemId={item._id} 
         delete={()=> props.delete(item._id)}
         key={item._id} title={item.title} 
         toggle={()=>props.complete(item._id)}
