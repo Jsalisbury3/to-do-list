@@ -4,11 +4,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import List from './list';
 import AddItem from './add_item';
-import dummyList from '../data/to_do_list'
-import {randomString} from '../helpers'
-
-const BASE_URL = 'http://api.reactprototypes.com/todos';
-const API_KEY = '?key=flamestatus'; 
+import {Route, Switch } from 'react-router-dom';
+import ViewItem from './view_item';
+import {BASE_URL, API_KEY} from '../config/api';
+import NotFound from './404'
 
 class App extends Component{
     state = {
@@ -20,7 +19,7 @@ class App extends Component{
     }
     addItem= async (item)=>{
         await axios.post(BASE_URL + API_KEY, item);
-        this.getListData();
+        await this.getListData();
     }
     async getListData(){
         try{
@@ -34,7 +33,6 @@ class App extends Component{
         }
 
     }
-
     deleteItem = async (id)=>{
         const resp = await axios.delete(`${BASE_URL}/${id + API_KEY}`);
         this.getListData();
@@ -45,16 +43,24 @@ class App extends Component{
         console.log(resp)
         this.getListData();
     }
-
-
-
     render(){
         const{list}=this.state;
         return(
             <div className = "container">
-                <h1 className="center">The to do list</h1>
-                <AddItem add={this.addItem}/>
-                <List delete={this.deleteItem} toDos={list} complete={this.toggleComplete}/>
+                <Switch>
+                    <Route path="/add-item" render={(props)=>{ console.log("Props", props);
+                        return  <AddItem {...props} add={this.addItem}/>
+                    }}/>
+
+                    <Route exact path="/" render={(props)=>{ 
+                        return  <List {...props} delete={this.deleteItem} toDos={list} complete={this.toggleComplete}/>
+                    }}/>
+
+                    <Route path="/item/:item_id" component={ViewItem}/>
+                    
+                    <Route component={NotFound}/>
+                </Switch>
+               
             </div>
         );
     }
